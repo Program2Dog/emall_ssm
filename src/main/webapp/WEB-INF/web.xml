@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+<!--  加载Spring核心配置文件-->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextCleanupListener</listener-class>
+  </listener>
+
+<!--  配置application.xml的路径,默认加载WEB-INF路径-->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:application.xml</param-value>
+  </context-param>
+
+<!--  配置前端控制器-->
+  <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:springmvc.xml</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+
+<!--  设置拦截器，配置提交请求的编码-->
+  <filter>
+    <filter-name>encoding</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceRequestEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>forceResponseEncoding</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encoding</filter-name>
+    <!-- 要拦截所有的话不能写/，只能写/*，不然会报错 -->
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+</web-app>
+        
