@@ -1,4 +1,4 @@
 jdbc.driverClassName=com.mysql.jdbc.Driver
-jdbc.url=jdbc:mysql:///ssm
+jdbc.url=jdbc:mysql:///emall
 jdbc.username=root
-jdbc.password=z123456
+jdbc.password=z123456Q
