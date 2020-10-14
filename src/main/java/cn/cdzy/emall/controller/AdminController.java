@@ -21,7 +21,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping(value = "findAll")
+    @RequestMapping(value = "/findAll")
     @ResponseBody
     public List<Admin> findAll(){
         return adminService.findAll();

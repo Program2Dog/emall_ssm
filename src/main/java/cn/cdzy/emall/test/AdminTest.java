@@ -2,19 +2,23 @@ package cn.cdzy.emall.test;
 
 import cn.cdzy.emall.mapper.AdminMapper;
 import cn.cdzy.emall.pojo.Admin;
-import cn.cdzy.emall.service.AdminService;
-import cn.cdzy.emall.service.Impl.AdminServiceImpl;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,21 +27,26 @@ import java.util.List;
  * @Author : Program_Dog  //作者
  * @Date: 2020-10-12 10:53  //时间
  */
-
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = "classpath:applicationContext.xml")  // 加载配置文件
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@ContextConfiguration(locations = {"classpath:applicationContext.xml","classpath:springmvc.xml"})
 public class AdminTest {
-//    @Resource(name = "adminService")
-//    AdminService adminService;
-//    @Autowired
-//    AdminMapper adminMapper;
+
+    @Autowired
+    WebApplicationContext context;
+
+    MockMvc mockMvc;
+
+    @Before
+    public void initMockMvc(){
+        mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+    }
 
     @Test
-    public void tets1() {
-//        List<Admin> admins = adminMapper.findAll();
-//        for (Admin admin : admins) {
-//            System.out.println(admin);
-//        }
+    public void test1() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/findAll")).andReturn();
+//        MockHttpServletRequest request = result.getRequest();
+//        System.out.println(request.getParameterNames());
     }
 
     @Test
@@ -45,7 +54,7 @@ public class AdminTest {
 //		导入Spring核心配置文件
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 //		获取bean
-		AdminMapper adminMapper = applicationContext.getBean(AdminMapper.class);
+        AdminMapper adminMapper = applicationContext.getBean(AdminMapper.class);
 //		执行查询
         List<Admin> admins = adminMapper.findAll();
 //		输出结果

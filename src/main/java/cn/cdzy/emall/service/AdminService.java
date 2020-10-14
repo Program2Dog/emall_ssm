@@ -13,5 +13,5 @@ public interface AdminService {
      * @return java.util.List<cn.cdzy.emall.pojo.Admin>
      * @Description 查询所有管理员账户 //TODO
      **/
-    List<Admin> findAll();
+    public List<Admin> findAll();
 }

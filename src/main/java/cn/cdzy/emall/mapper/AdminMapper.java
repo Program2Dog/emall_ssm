@@ -12,6 +12,7 @@ import java.util.List;
  * @Author : Program_Dog  //作者
  * @Date: 2020-10-12 09:49  //时间
  */
+//@Repository
 public interface AdminMapper {
 
     /**
